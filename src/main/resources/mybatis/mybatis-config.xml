@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 属性定义 加载一个properties文件 在 properties标签 中配置属性值 -->
+	<properties resource="jdbc.properties"/>
+
+	<!-- 定义 别名 -->
+	<typeAliases>
+		<typeAlias type="com.dayuanit.dymall.domain.Goods" alias="goods"/>
+		<typeAlias type="com.dayuanit.dymall.domain.GoodsImg" alias="goodsImg"/>
+		<typeAlias type="com.dayuanit.dymall.domain.GoodsCategory" alias="goodsCategory"/>
+		<typeAlias type="com.dayuanit.dymall.domain.User" alias="user"/>
+		<typeAlias type="com.dayuanit.dymall.domain.ShoppingCar" alias="shoppingCar"/>
+		<typeAlias type="com.dayuanit.dymall.domain.Address" alias="address"/>
+		<typeAlias type="com.dayuanit.dymall.domain.Order" alias="order"/>
+		<typeAlias type="com.dayuanit.dymall.domain.OrderDetail" alias="orderDetail"/>
+		<typeAlias type="com.dayuanit.dymall.domain.PayChannel" alias="payChannel"/>
+		<typeAlias type="com.dayuanit.dymall.domain.Logistics" alias="logistics"/>
+		<typeAlias type="com.dayuanit.dymall.domain.AddressSnap" alias="addressSnap"/>
+		
+	</typeAliases> 
+	
+
+</configuration>

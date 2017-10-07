@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dayuanit.dymall.mapper.ShopCarMapper">
+	
+	<resultMap id="shoppingCarResultMap" type="shoppingCar">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id"/>
+		<result property="goodsId" column="goods_id"/>
+		<result property="goodsAmout" column="goods_amount"/>
+		<result property="status" column="car_status"/>
+		<result property="createTime" column="car_create_time"/>
+		<result property="modifyTime" column="car_modify_time"/>
+	</resultMap>
+	
+	<insert id="addGoods" parameterType="shoppingCar" useGeneratedKeys="true" keyProperty="id">
+		insert into mall_shopping_car(user_id,goods_id,goods_amount,car_status,car_create_time,car_modify_time) 
+		value(#{userId},#{goodsId},#{goodsAmout},#{status},now(),now());
+	</insert>
+
+	<select id="listCar" parameterType="int" resultMap="shoppingCarResultMap">
+		select id,user_id,goods_id,goods_amount,car_status,car_create_time,car_create_time from mall_shopping_car
+		where car_status=1 and user_id = #{userId};
+	</select>
+	
+	<select id="listShoppingCar" parameterType="int" resultMap="shoppingCarResultMap">
+		select id,user_id,goods_id,goods_amount,car_status,car_create_time,car_create_time from mall_shopping_car
+		where car_status=1 and user_id = #{userId};
+	</select>
+	
+	<select id="getSameShoppingCar" parameterType="hashMap" resultMap="shoppingCarResultMap">
+		select id,user_id,goods_id,goods_amount,car_status,car_create_time,car_create_time from mall_shopping_car
+		where user_id = #{userId} and goods_id = #{goodsId};
+	</select>
+	
+	<select id="getCount" parameterType="int" resultType="int">
+		select count(user_id) from mall_shopping_car
+		where user_id = #{userId};
+	</select>
+	
+	<update id="updateCar" parameterType="shoppingCar" >
+		update mall_shopping_car set car_status = #{status},car_modify_time = now() where id = #{id};
+	</update>
+	
+	
+	
+	<update id="updateSameCar" parameterType="shoppingCar" >
+		update mall_shopping_car set goods_amount =goods_amount+ #{amount},car_modify_time = now() where user_id = #{userId} and goods_id = #{goodsId};
+	</update>
+	
+	<select id="getShoppingCar" parameterType="int" resultMap="shoppingCarResultMap">
+		select id,user_id,goods_id,goods_amount,car_status,car_create_time,car_modify_time from mall_shopping_car
+		where id = #{id};
+	</select>
+</mapper>

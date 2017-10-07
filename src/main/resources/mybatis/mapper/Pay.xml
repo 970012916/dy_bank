@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dayuanit.dymall.mapper.PayMapper">
+
+    <resultMap id="payChannelResultMap" type="payChannel">
+        <id property="id" column="id" />
+        <result property="payName" column="pay_name"/>
+        <result property="payCode" column="pay_code"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="payImgId" column="pay_img_id"/>
+    </resultMap>
+
+
+    <select id="listPayChannel" resultMap="payChannelResultMap">
+        select id,pay_name,pay_code,pay_status ,pay_img_id from pay_channel where pay_status = 1;
+    </select>
+
+
+    <select id="getPayChannel" parameterType="int" resultMap="payChannelResultMap">
+        select id,pay_name,pay_code,pay_status,pay_img_id from pay_channel where id = #{id};
+    </select>
+
+
+
+
+</mapper>

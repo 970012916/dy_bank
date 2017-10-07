@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dayuanit.dymall.mapper.OrderDetailMapper">
+
+    <resultMap id="orderDetailResultMap" type="orderDetail">
+        <id property="id" column="id" />
+        <result property="orderId" column="order_id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsAmount" column="goods_amount"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsTotalPrice" column="goods_total_price"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+
+    </resultMap>
+    <insert id="addOrderDetail" parameterType="orderDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into mall_order_detail(order_id,goods_id,goods_name,goods_amount,goods_price,goods_total_price,create_time,modify_time) value(
+        #{orderId},#{goodsId},#{goodsName},#{goodsAmount},#{goodsPrice},#{goodsTotalPrice},now(),now());
+    </insert>
+
+    <select id="listOrderDetail" parameterType="int" resultMap="orderDetailResultMap">
+        select order_id,goods_id,goods_name,goods_amount,goods_price,goods_total_price from mall_order_detail where order_id = #{orderId};
+
+    </select>
+
+</mapper>

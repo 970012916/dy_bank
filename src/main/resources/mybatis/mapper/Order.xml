@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dayuanit.dymall.mapper.OrderMapper">
+
+    <resultMap id="orderResultMap" type="order">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id"/>
+        <result property="totalPrice" column="goods_total_price"/>
+        <result property="status" column="order_status"/>
+        <result property="remark" column="order_remark"/>
+        <result property="orderFrom" column="order_from"/>
+        <result property="createTime" column="order_create_time"/>
+        <result property="modifyTime" column="order_modify_time"/>
+        <result property="snapId" column="address_snap_id"/>
+        <result property="payChannel" column="pay_channel"/>
+        <result property="logisticsChannel" column="logistics_channel"/>
+        <result property="payId" column="pay_id"/>
+
+    </resultMap>
+    <insert id="addOrder" parameterType="order" useGeneratedKeys="true" keyProperty="id">
+        insert into mall_goods_order(user_id,goods_total_price,order_status, order_remark,order_from,order_create_time,order_modify_time) value(
+        #{userId},#{totalPrice},#{status},#{remark},#{orderFrom},now(),now());
+    </insert>
+
+    <select id="getOrder" parameterType="int" resultMap="orderResultMap">
+        select id,user_id,goods_total_price,order_status,
+        order_remark,order_from,order_create_time,order_modify_time,address_snap_id ,pay_channel, logistics_channel from mall_goods_order where  id = #{id}
+        for update;
+    </select>
+    <select id="getOrder4Lock" parameterType="int" resultMap="orderResultMap">
+        select id,user_id,goods_total_price,order_status,
+        order_remark,order_from,order_create_time,order_modify_time,address_snap_id ,pay_channel, logistics_channel from mall_goods_order where  id = #{id};
+    </select>
+
+    <select id="listOrder" parameterType="int" resultMap="orderResultMap">
+        select id,user_id,goods_total_price,order_status,
+        order_remark,order_from,order_create_time,order_modify_time,address_snap_id from mall_goods_order where order_status!=4 and user_id = #{userId};
+    </select>
+
+	<update id="changeOrderStatus" parameterType="java.util.HashMap">
+		update mall_goods_order set order_status=#{status}, order_modify_time=now() where id=#{orderId};
+	</update>
+
+
+    <select id="countOrderList" parameterType="map" resultType="int">
+        select count(*)
+        from mall_goods_order
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="orderStatus != null">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="orderStatus == null">
+                <![CDATA[
+        		and order_status <> 0
+        	]]>
+            </if>
+        </trim>
+        order by id desc ;
+    </select>
+
+
+	<select id="listOrderByStatusAndUserId" parameterType="map" resultMap="orderResultMap">
+        select id,user_id,goods_total_price,order_status,
+        order_remark,order_from,order_create_time,order_modify_time,address_snap_id,pay_channel, logistics_channel
+        from mall_goods_order 
+        <trim prefix="where" prefixOverrides="and|or">
+        <if test="userId != null">
+        	and user_id = #{userId}
+        </if>
+        <if test="orderStatus != null">
+        	and order_status = #{orderStatus}
+        </if>
+        <if test="orderStatus == null">
+        	<![CDATA[
+        		and order_status <> 1
+        	]]>
+        </if>
+        </trim>
+        order by id desc limit #{offNum},#{perNum};
+    </select>
+
+    <update id="updateOrder" parameterType="order">
+        update mall_goods_order
+        <trim prefix="set" suffixOverrides=",">
+            order_modify_time = now(),
+            <if test="userId !=  null">
+                user_id = #{userId},
+            </if>
+            <if test="totalPrice !=  null">
+                goods_total_price= #{totalPrice},
+            </if>
+            <if test="status !=  null">
+                order_status = #{status},
+            </if>
+            <if test="remark !=  null">
+                order_remark = #{remark},
+            </if>
+            <if test="orderFrom !=  null">
+                order_from = #{orderFrom},
+             </if>
+            <if test="snapId !=  null">
+                address_snap_id = #{snapId},
+            </if>
+            <if test="payChannel !=  null">
+                pay_channel = #{payChannel},
+            </if>
+            <if test="logisticsChannel !=  null">
+                logistics_channel = #{logisticsChannel},
+            </if>
+	
+			<if test="payId !=  null">
+                pay_id = #{payId},
+            </if>
+        </trim>
+            where id = #{id};
+    </update> 
+
+</mapper>

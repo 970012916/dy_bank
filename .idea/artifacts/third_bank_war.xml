@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="third-bank:war">
+    <output-path>$PROJECT_DIR$/../王雪涛/dy_bank/target</output-path>
+    <root id="archive" name="third-bank.war">
+      <element id="artifact" artifact-name="third-bank:war exploded" />
+    </root>
+  </artifact>
+</component>

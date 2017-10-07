@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dayuanit.dymall.mapper.AddressSnapMapper">
+
+    <resultMap id="addressSnapResultMap" type="addressSnap">
+        <id property="id" column="id" />
+        <result property="orderId" column="order_id"/>
+        <result property="provinceCode" column="user_province_code"/>
+        <result property="cityCode" column="user_city_code"/>
+        <result property="areaCode" column="user_area_code"/>
+        <result property="detailAddress" column="user_detail_address"/>
+        <result property="username" column="user_name"/>
+        <result property="mobileNum" column="user_mobile_num"/>
+        <result property="provinceName" column="user_province_name"/>
+        <result property="cityName" column="user_city_name"/>
+        <result property="areaName" column="user_area_name"/>
+        <result property="createTime" column="address_create_time"/>
+        <result property="modifyTime" column="address_modify_time"/>
+
+    </resultMap>
+    <insert id="addAddressSnap" parameterType="addressSnap" useGeneratedKeys="true" keyProperty="id">
+        insert into mall_address_snap (order_id,user_province_code,user_city_code,user_area_code,user_detail_address,user_name,
+        user_mobile_num,user_province_name,user_city_name,user_area_name,address_create_time,address_modify_time) value(
+        #{orderId},#{provinceCode},#{cityCode},#{areaCode},#{detailAddress},#{username},#{mobileNum},#{provinceName},#{cityName},#{areaName},now(),now());
+    </insert>
+    
+    <select id="getAddressSnap" parameterType="int" resultMap="addressSnapResultMap">
+        select id,order_id,user_province_code,user_city_code,user_area_code,user_detail_address,user_name,
+        user_mobile_num,user_province_name,user_city_name,user_area_name,address_create_time,address_modify_time
+        from mall_address_snap where order_id =#{orderId};
+    </select>
+
+</mapper>

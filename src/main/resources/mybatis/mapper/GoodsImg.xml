@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dayuanit.dymall.mapper.GoodsImgMapper">
+
+	<resultMap id="goodsImgResultMap" type="goodsImg">
+		<id property="id" column="id" />
+		<result property="goodsId" column="goods_id"/>
+		<result property="category" column="goods_img_category"/>
+		<result property="imgName" column="goods_img_name"/>
+		<result property="createTime" column="img_create_time"/>
+		<result property="modifyTime" column="img_modify_time"/>
+	</resultMap>
+	<insert id="addGoodsImg" parameterType="goodsImg" useGeneratedKeys="true" keyProperty="id">
+		insert into mall_goods_img(goods_id,goods_img_category,goods_img_name,img_create_time,img_modify_time) 
+		value(#{goodsId},#{category},#{imgName},now(),now());
+	</insert>
+	
+	<select id="getGoodsImg" parameterType="int" resultMap="goodsImgResultMap">
+		select id,goods_id,goods_img_category,goods_img_name,img_create_time,img_modify_time from mall_goods_img
+		where id = #{id};
+	</select>
+	
+</mapper>

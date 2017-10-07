@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../王雪涛/dy_bank" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../王雪涛/dy_pay" vcs="svn" />
+    <mapping directory="D:/git" vcs="Git" />
+  </component>
+</project>
